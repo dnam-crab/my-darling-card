@@ -37,16 +37,16 @@ main {
   width: 100%;
   min-height: 100dvh;
   place-items: center;
-  padding: 24px;
+  padding: clamp(12px, 4vw, 24px);
   overflow: hidden;
 }
 
 [data-component="invitation"] {
-  width: min(100%, 420px);
+  width: min(100%, clamp(280px, 82vw, 420px));
 }
 
 .invitation-card {
-  padding: 56px 28px 42px;
+  padding: clamp(28px, 8vh, 56px) clamp(18px, 5vw, 28px) clamp(26px, 6vh, 42px);
   text-align: center;
   background: rgb(255 255 255 / 78%);
   border: 1px solid rgb(255 255 255 / 85%);
@@ -56,14 +56,14 @@ main {
 }
 
 .invitation-question {
-  margin: 0 auto 34px;
-  font-size: clamp(1.7rem, 7vw, 2.45rem);
+  margin: 0 auto clamp(22px, 5vh, 34px);
+  font-size: clamp(1.45rem, 7vw, 2.45rem);
   line-height: 1.15;
 }
 
 .yes-button {
-  min-width: 150px;
-  padding: 14px 28px;
+  min-width: clamp(120px, 36vw, 150px);
+  padding: clamp(10px, 2.5vh, 14px) clamp(16px, 5vw, 28px);
   color: #fff;
   font-size: 1rem;
   font-weight: 700;
@@ -89,13 +89,13 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: clamp(8px, 2.5vw, 12px);
 }
 
 .no-button {
-  min-width: 120px;
+  min-width: clamp(100px, 30vw, 120px);
   max-width: calc(100vw - 20px);
-  padding: 14px 24px;
+  padding: clamp(10px, 2.5vh, 14px) clamp(14px, 4vw, 24px);
   color: #b33d70;
   font-size: 1rem;
   font-weight: 700;
@@ -116,4 +116,258 @@ main {
   position: fixed;
   z-index: 10;
   transition: left 90ms ease-out, top 90ms ease-out;
+}
+
+.food-choice {
+  width: min(100%, clamp(280px, 88vw, 440px));
+}
+
+.food-card {
+  padding: clamp(22px, 5vh, 42px) clamp(16px, 5vw, 24px) clamp(20px, 4vh, 30px);
+  text-align: center;
+  background: rgb(255 255 255 / 78%);
+  border: 1px solid rgb(255 255 255 / 85%);
+  border-radius: 18px;
+  box-shadow: 0 18px 42px rgb(151 74 111 / 16%);
+  backdrop-filter: blur(8px);
+}
+
+.food-question {
+  margin: 0;
+  color: #9f426d;
+  font-size: clamp(1.55rem, 7vw, 2.45rem);
+  line-height: 1.15;
+}
+
+.food-subtitle {
+  margin: clamp(7px, 2vh, 10px) 0 clamp(18px, 4vh, 26px);
+  color: #bd7896;
+  font-family: Arial, sans-serif;
+  font-size: 0.85rem;
+}
+
+.food-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(8px, 2.5vw, 12px);
+}
+
+.food-option {
+  display: flex;
+  min-height: clamp(64px, 11vh, 78px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #93466b;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: rgb(255 247 250 / 78%);
+  border: 1px solid #f0c4d5;
+  border-radius: 12px;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.food-option:hover,
+.food-option--selected {
+  background: #f9d3e2;
+  border-color: #d94f87;
+  transform: translateY(-2px);
+}
+
+.food-emoji {
+  font-size: clamp(1.3rem, 5vw, 1.6rem);
+  line-height: 1;
+}
+
+.next-button {
+  min-width: clamp(145px, 45vw, 190px);
+  margin-top: clamp(18px, 4vh, 26px);
+  padding: clamp(10px, 2.5vh, 13px) clamp(18px, 5vw, 26px);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  background: #d94f87;
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 8px 16px rgb(185 59 111 / 25%);
+}
+
+.next-button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.date-time-choice {
+  width: min(100%, clamp(280px, 88vw, 440px));
+}
+
+.date-time-card {
+  padding: clamp(18px, 4vh, 34px) clamp(14px, 5vw, 22px) clamp(18px, 4vh, 28px);
+  text-align: center;
+  background: rgb(255 255 255 / 78%);
+  border: 1px solid rgb(255 255 255 / 85%);
+  border-radius: 18px;
+  box-shadow: 0 18px 42px rgb(151 74 111 / 16%);
+  backdrop-filter: blur(8px);
+}
+
+.date-time-question {
+  margin: 0;
+  color: #9f426d;
+  font-size: clamp(1.45rem, 7vw, 2.3rem);
+  line-height: 1.15;
+}
+
+.date-time-subtitle,
+.time-label {
+  color: #bd7896;
+  font-family: Arial, sans-serif;
+  font-size: 0.85rem;
+}
+
+.date-time-subtitle {
+  margin: clamp(7px, 2vh, 10px) 0 clamp(12px, 3vh, 18px);
+}
+
+.calendar {
+  position: relative;
+  padding: clamp(10px, 2.5vh, 14px) clamp(8px, 3vw, 12px) clamp(8px, 2vh, 12px);
+  background: linear-gradient(145deg, rgb(255 251 253 / 96%), rgb(255 241 248 / 88%));
+  border: 2px solid #e9a9c3;
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 5px rgb(255 255 255 / 62%), inset 0 0 0 7px #f5cada;
+}
+
+.calendar-frame-top,
+.calendar-frame-bottom {
+  color: #d36b99;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.calendar-frame-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px 3px;
+  font-size: 0.72rem;
+}
+
+.calendar-frame-bottom {
+  margin-top: 5px;
+  font-size: 0.8rem;
+}
+
+.calendar-month {
+  margin: 0 0 clamp(7px, 2vh, 10px);
+  color: #93466b;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.calendar-weekdays,
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.calendar-weekdays {
+  margin-bottom: 4px;
+  color: #bd7896;
+  font-family: Arial, sans-serif;
+  font-size: 0.68rem;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  color: #93466b;
+  font-family: Arial, sans-serif;
+  font-size: 0.75rem;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 50%;
+}
+
+.calendar-day--muted {
+  color: #b9b1b5;
+  cursor: default;
+  background: transparent;
+}
+
+.calendar-day--runner {
+  cursor: default;
+}
+
+.calendar-day--target {
+  cursor: pointer;
+}
+
+.calendar-day--empty {
+  pointer-events: none;
+}
+
+.calendar-day--escaped {
+  position: fixed;
+  z-index: 20;
+  aspect-ratio: auto;
+  transition: left 90ms ease-out, top 90ms ease-out;
+}
+
+.calendar-day:hover,
+.calendar-day--selected {
+  color: #fff;
+  background: #0878c9;
+}
+
+.calendar-day--muted:hover {
+  color: #b9b1b5;
+  background: transparent;
+}
+
+.time-label {
+  margin: clamp(12px, 3vh, 18px) 0 clamp(6px, 1.5vh, 8px);
+}
+
+.time-select-wrapper {
+  position: relative;
+}
+
+.time-select-wrapper::after {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 0;
+  height: 0;
+  content: "";
+  pointer-events: none;
+  border-top: 6px solid #d94f87;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  transform: translateY(-25%);
+}
+
+.time-select {
+  width: 100%;
+  padding: clamp(10px, 2.5vh, 13px) 42px clamp(10px, 2.5vh, 13px) 16px;
+  color: #93466b;
+  font-family: Arial, sans-serif;
+  font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+  cursor: pointer;
+  appearance: none;
+  background: rgb(255 247 250 / 88%);
+  border: 1px solid #e9a9c3;
+  border-radius: 10px;
+  outline: none;
+  box-shadow: inset 0 0 0 2px rgb(255 255 255 / 50%);
+}
+
+.time-select:focus {
+  border-color: #d94f87;
+  box-shadow: 0 0 0 3px rgb(217 79 135 / 18%);
 }
