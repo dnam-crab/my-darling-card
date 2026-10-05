@@ -1,7 +1,7 @@
 export const invitationConfig = {
-  question: "Nội dung lời mời sẽ đặt ở đây.",
-  yesLabel: "Đồng ý",
-  noLabel: "Không",
+  question: "Will you go on a date with me?",
+  yesLabel: "YES ♥",
+  noLabel: "NO",
   messagePrompt: "Bạn có điều gì muốn nhắn lại không?",
   successMessage: "Lời nhắn đã được ghi nhận.",
   cardTitle: "Save the Date",

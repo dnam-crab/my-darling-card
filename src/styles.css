@@ -1,0 +1,119 @@
+:root {
+  font-family: Georgia, "Times New Roman", serif;
+  color: #9f426d;
+  background: #f7dce7;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 20% 20%, rgb(255 255 255 / 55%), transparent 34%),
+    radial-gradient(circle at 80% 75%, rgb(244 182 207 / 65%), transparent 38%),
+    #f8dce7;
+}
+
+button {
+  font: inherit;
+}
+
+main {
+  display: grid;
+  width: 100%;
+  min-height: 100dvh;
+  place-items: center;
+  padding: 24px;
+  overflow: hidden;
+}
+
+[data-component="invitation"] {
+  width: min(100%, 420px);
+}
+
+.invitation-card {
+  padding: 56px 28px 42px;
+  text-align: center;
+  background: rgb(255 255 255 / 78%);
+  border: 1px solid rgb(255 255 255 / 85%);
+  border-radius: 18px;
+  box-shadow: 0 18px 42px rgb(151 74 111 / 16%);
+  backdrop-filter: blur(8px);
+}
+
+.invitation-question {
+  margin: 0 auto 34px;
+  font-size: clamp(1.7rem, 7vw, 2.45rem);
+  line-height: 1.15;
+}
+
+.yes-button {
+  min-width: 150px;
+  padding: 14px 28px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  background: #d94f87;
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 8px 16px rgb(185 59 111 / 25%);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.yes-button:hover {
+  box-shadow: 0 10px 20px rgb(185 59 111 / 32%);
+  transform: translateY(-2px);
+}
+
+.yes-button:active {
+  transform: translateY(0);
+}
+
+.invitation-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.no-button {
+  min-width: 120px;
+  max-width: calc(100vw - 20px);
+  padding: 14px 24px;
+  color: #b33d70;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: default;
+  background: #fff;
+  border: 1px solid #e28aae;
+  white-space: nowrap;
+  border-radius: 999px;
+  transition: transform 160ms ease;
+}
+
+.no-button:hover {
+  transform: translateY(-2px);
+}
+
+.no-button--escaped {
+  position: fixed;
+  z-index: 10;
+  transition: left 90ms ease-out, top 90ms ease-out;
+}
