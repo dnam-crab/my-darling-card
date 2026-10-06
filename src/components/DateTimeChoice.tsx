@@ -23,7 +23,7 @@ const calendarDays: CalendarDay[] = [
   ...Array.from({ length: 7 }, (_, index) => ({ day: index + 1, muted: true })),
 ];
 const weekdays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-const times = Array.from({ length: 17 }, (_, index) => {
+const times = Array.from({ length: 25 }, (_, index) => {
   const totalMinutes = 12 * 60 + index * 30;
   const hour = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
