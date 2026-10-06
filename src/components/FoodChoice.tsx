@@ -4,21 +4,29 @@ import snapVideoUrl from "../../assets/clips/Snap.mp4";
 
 type FoodChoiceProps = {
   onNext: (food: string) => void;
+  onBack: () => void;
+  hasUsedAnything: boolean;
+  onAnythingConsumed: () => void;
 };
 
 const foodOptions = [
-  { label: "Cay Một Cách Thanh Lịch", emoji: "🌶️" },
-  { label: "Tây Vị Quý Tộc", emoji: "🍝" },
-  { label: "Quý Tộc Lõi Hồng", emoji: "🥩" },
-  { label: "Gia Phả Xương Xẩu", emoji: "🍖" },
-  { label: "Ngưu Ma Vương Nghỉ Phép", emoji: "🐄" },
-  { label: "Khói Tận Cam Lai", emoji: "🔥" },
-  { label: "Món gìii cũnggg đượccccc", emoji: "🤷", anything: true },
+  { label: "Cay Một Cách Thanh Lịch", description: "Món Thái", emoji: "🌶️" },
+  { label: "Tây Vị Quý Tộc", description: "Món Âu", emoji: "🍝" },
+  { label: "Quý Tộc Lõi Hồng", description: "Beefsteak", emoji: "🥩" },
+  { label: "Gia Phả Xương Xẩu", description: "Món sườn", emoji: "🍖" },
+  { label: "Ngưu Ma Vương Nghỉ Phép", description: "Món bò", emoji: "🐄" },
+  { label: "Khói Tận Cam Lai", description: "Món nướng", emoji: "🔥" },
+  {
+    label: "Món gìii cũnggg đượccccc",
+    description: "Món gì cũng được",
+    emoji: "🤷",
+    anything: true,
+  },
 ];
 
-export function FoodChoice({ onNext }: FoodChoiceProps) {
+export function FoodChoice({ onNext, onBack, hasUsedAnything, onAnythingConsumed }: FoodChoiceProps) {
   const [selectedFood, setSelectedFood] = useState<string | null>(null);
-  const [isAnythingVisible, setIsAnythingVisible] = useState(true);
+  const [isAnythingMessageVisible, setIsAnythingMessageVisible] = useState(false);
   const [confirmationStep, setConfirmationStep] = useState(0);
   const [isClipVisible, setIsClipVisible] = useState(false);
   const [flashPhase, setFlashPhase] = useState<"hidden" | "cover" | "hold" | "reveal">("hidden");
@@ -38,7 +46,10 @@ export function FoodChoice({ onNext }: FoodChoiceProps) {
       frameCount: 32,
       repetitionCount: 2,
       restoreVisibility: false,
-      onComplete: () => setIsAnythingVisible(false),
+      onComplete: () => {
+        onAnythingConsumed();
+        setIsAnythingMessageVisible(true);
+      },
     });
   };
 
@@ -80,12 +91,15 @@ export function FoodChoice({ onNext }: FoodChoiceProps) {
     <section className="food-choice" data-component="food-choice">
       <div className="food-layout">
         <div className="food-card">
-        <p className="food-question">What are we feeling?</p>
-        <p className="food-subtitle">Pick what we&apos;re craving for our date</p>
+        <button className="back-button" type="button" onClick={onBack}>
+          ← Back
+        </button>
+        <p className="food-question">What are we craving?</p>
+        <p className="food-subtitle">Pick our date-night feast</p>
 
         <div className="food-options">
           {foodOptions.map((food) => {
-            if (food.anything && !isAnythingVisible) return null;
+            if (food.anything && hasUsedAnything) return null;
 
             return (
             <button
@@ -93,6 +107,8 @@ export function FoodChoice({ onNext }: FoodChoiceProps) {
               className={`food-option${food.anything ? " food-option--anything" : ""}${
                 selectedFood === food.label ? " food-option--selected" : ""
               }`}
+              title={food.description}
+              aria-label={`${food.label} — ${food.description}`}
               key={food.label}
               type="button"
               onClick={() => {
@@ -118,14 +134,21 @@ export function FoodChoice({ onNext }: FoodChoiceProps) {
           disabled={!selectedFood}
           onClick={() => onNext(selectedFood!)}
         >
-          NEXT ♥
+          SAVE OUR PICKS ♥
         </button>
         </div>
 
         {isClipVisible && (
           <div className="snap-clip" aria-label="The snap clip">
-            <video autoPlay muted playsInline onEnded={handleClipEnded}>
-              <source src={snapVideoUrl} type="video/mp4" />
+            <video
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+              src={snapVideoUrl}
+              onEnded={handleClipEnded}
+            >
+              Your browser does not support this video.
             </video>
           </div>
         )}
@@ -155,6 +178,16 @@ export function FoodChoice({ onNext }: FoodChoiceProps) {
             </div>
           </div>
         </div>
+      )}
+
+      {isAnythingMessageVisible && (
+        <p
+          className="anything-choice-message"
+          role="status"
+          onAnimationEnd={() => setIsAnythingMessageVisible(false)}
+        >
+          Nope, sweetheart — “anything” is not an answer. 💙
+        </p>
       )}
     </section>
   );

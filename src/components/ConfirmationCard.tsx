@@ -3,10 +3,11 @@ import type { InviteSelections } from "../App";
 
 type ConfirmationCardProps = {
   selections: InviteSelections;
+  onBack: () => void;
   onSubmit: () => Promise<void>;
 };
 
-export function ConfirmationCard({ selections, onSubmit }: ConfirmationCardProps) {
+export function ConfirmationCard({ selections, onBack, onSubmit }: ConfirmationCardProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const formattedDate = selections.date
     ? new Intl.DateTimeFormat("en-US", {
@@ -19,6 +20,9 @@ export function ConfirmationCard({ selections, onSubmit }: ConfirmationCardProps
   return (
     <section className="confirmation-choice" data-component="confirmation-card">
       <div className="confirmation-card">
+        <button className="back-button" type="button" onClick={onBack}>
+          ← Back
+        </button>
         <p className="confirmation-heading">YAY!! 💕</p>
 
         <div className="confirmation-details">
@@ -38,7 +42,7 @@ export function ConfirmationCard({ selections, onSubmit }: ConfirmationCardProps
 
         <p className="confirmation-message">I can&apos;t wait to see you! 🌷✨</p>
         <p className="confirmation-note">
-          The most thoughtful thing I&apos;ve ever seen!!
+          This is going to be our perfect date!!
         </p>
 
         <button

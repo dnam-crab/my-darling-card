@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 
 type DateTimeChoiceProps = {
   onNext: (date: string, time: string) => void;
+  onBack: () => void;
 };
 
 type CalendarDay = {
@@ -35,7 +36,7 @@ const times = Array.from({ length: 25 }, (_, index) => {
   };
 });
 
-export function DateTimeChoice({ onNext }: DateTimeChoiceProps) {
+export function DateTimeChoice({ onNext, onBack }: DateTimeChoiceProps) {
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [floatingDays, setFloatingDays] = useState<Record<number, FloatingDay>>({});
@@ -67,21 +68,40 @@ export function DateTimeChoice({ onNext }: DateTimeChoiceProps) {
       }
     }
 
+    const startPosition = {
+      left: Math.min(Math.max(0, rect.left), maxLeft),
+      top: Math.min(Math.max(0, rect.top), maxTop),
+    };
+
     setFloatingDays((current) => ({
       ...current,
       [day]: {
-        ...position,
+        ...startPosition,
         width: rect.width,
         height: rect.height,
       },
     }));
+
+    window.requestAnimationFrame(() => {
+      setFloatingDays((current) => ({
+        ...current,
+        [day]: {
+          ...position,
+          width: rect.width,
+          height: rect.height,
+        },
+      }));
+    });
   }
 
   return (
     <section className="date-time-choice" data-component="date-time-choice">
       <div className="date-time-card">
-        <p className="date-time-question">So... where are you free?</p>
-        <p className="date-time-subtitle">Pick a date and time for our date</p>
+        <button className="back-button" type="button" onClick={onBack}>
+          ← Back
+        </button>
+        <p className="date-time-question">When are you free for our date?</p>
+        <p className="date-time-subtitle">Pick the day and time that works for us</p>
 
         <div className="calendar" aria-label="October 2026 calendar">
           <div className="calendar-frame-top" aria-hidden="true">
@@ -166,7 +186,7 @@ export function DateTimeChoice({ onNext }: DateTimeChoiceProps) {
             )
           }
         >
-          GET THE DATE ♥
+          LOCK IN OUR DATE ♥
         </button>
       </div>
       {Object.entries(floatingDays).map(([dayValue, position]) => {

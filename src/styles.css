@@ -115,7 +115,8 @@ main {
 .no-button--escaped {
   position: fixed;
   z-index: 10;
-  transition: left 90ms ease-out, top 90ms ease-out;
+  transition: left 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    top 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .food-choice {
@@ -304,6 +305,56 @@ main {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+.anything-choice-message {
+  position: fixed;
+  z-index: 80;
+  top: 50%;
+  left: 50%;
+  width: min(90vw, 720px);
+  margin: 0;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.45rem, 5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  text-shadow:
+    -3px -3px 0 #075b78,
+    3px -3px 0 #075b78,
+    -3px 3px 0 #075b78,
+    3px 3px 0 #075b78,
+    -3px 0 0 #075b78,
+    3px 0 0 #075b78,
+    0 -3px 0 #075b78,
+    0 3px 0 #075b78,
+    0 6px 18px rgb(0 63 86 / 35%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: anything-message-pop-fade 3200ms ease-in-out forwards;
+}
+
+@keyframes anything-message-pop-fade {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.78) rotate(-2deg);
+  }
+
+  14% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.04) rotate(0deg);
+  }
+
+  68% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.08) rotate(1deg);
+  }
+}
+
 @media (max-width: 760px) {
   .food-layout {
     flex-direction: column;
@@ -317,6 +368,26 @@ main {
 .food-emoji {
   font-size: clamp(1.3rem, 5vw, 1.6rem);
   line-height: 1;
+}
+
+.back-button {
+  display: block;
+  margin: 0 0 clamp(12px, 2vh, 18px);
+  padding: 4px 9px;
+  color: #5c9db0;
+  font-family: Arial, sans-serif;
+  font-size: 0.78rem;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+}
+
+.back-button:hover,
+.back-button:focus-visible {
+  color: #075b78;
+  background: rgb(0 189 252 / 10%);
+  outline: none;
 }
 
 .next-button {
@@ -454,7 +525,8 @@ main {
   position: fixed;
   z-index: 20;
   aspect-ratio: auto;
-  transition: left 90ms ease-out, top 90ms ease-out;
+  transition: left 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    top 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .calendar-day:hover,
@@ -726,4 +798,160 @@ body {
 
 .submit-error {
   color: #087391;
+}
+
+/* Shared button feedback: a soft lift and glow on hover, with a quick press response. */
+.yes-button,
+.next-button,
+.submit-button,
+.modal-no-button,
+.modal-yes-button,
+.back-button {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease,
+    background-color 180ms ease;
+}
+
+.yes-button:hover,
+.next-button:not(:disabled):hover,
+.submit-button:not(:disabled):hover,
+.modal-no-button:hover,
+.modal-yes-button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.yes-button:active,
+.next-button:not(:disabled):active,
+.submit-button:not(:disabled):active,
+.modal-no-button:active,
+.modal-yes-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.next-button:not(:disabled):hover,
+.submit-button:not(:disabled):hover,
+.modal-yes-button:hover {
+  box-shadow: 0 11px 24px rgb(0 145 190 / 32%);
+}
+
+.modal-no-button:hover {
+  box-shadow: 0 7px 16px rgb(0 145 190 / 16%);
+}
+
+.back-button:hover,
+.back-button:focus-visible {
+  transform: translateX(-2px);
+}
+
+.food-option {
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.food-option:hover {
+  box-shadow: 0 8px 18px rgb(0 145 190 / 14%);
+  transform: translateY(-3px) scale(1.015);
+}
+
+.food-option:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+.calendar-day {
+  transition: transform 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.calendar-day--escaped {
+  transition:
+    left 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    top 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.calendar-day--target:hover {
+  box-shadow: 0 5px 12px rgb(0 145 190 / 22%);
+  transform: scale(1.14);
+}
+
+.calendar-day--target:active {
+  transform: scale(1.04);
+}
+
+/* Soft photo background with the cyan theme veil above it. */
+body {
+  position: relative;
+  isolation: isolate;
+  background: #dff7ff;
+}
+
+body::before,
+body::after {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+}
+
+body::before {
+  background: url("/assets/images/background.png") 95% center / cover no-repeat;
+  filter: blur(6px);
+  opacity: 0.55;
+  transform: scale(1.025);
+}
+
+body::after {
+  background: rgb(0 189 252 / 34%);
+  mix-blend-mode: soft-light;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.sticker-layer {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sticker-orbit {
+  position: absolute;
+  display: block;
+  animation: sticker-float ease-in-out infinite;
+  will-change: transform;
+}
+
+.floating-sticker {
+  display: block;
+  width: clamp(42px, 14vw, 216px);
+  max-width: 216px;
+  opacity: 0.86;
+  filter: drop-shadow(0 5px 7px rgb(0 82 111 / 20%)) saturate(0.92);
+  user-select: none;
+  will-change: transform;
+}
+
+@keyframes sticker-float {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-1deg);
+  }
+
+  50% {
+    transform: translate(var(--drift-x), var(--drift-y)) rotate(1deg);
+  }
 }

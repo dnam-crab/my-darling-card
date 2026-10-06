@@ -55,7 +55,12 @@ export function Invitation({
       }
     }
 
-    setNoPosition(nextPosition);
+    const startPosition = { left: currentLeft, top: currentTop };
+    setNoPosition(startPosition);
+
+    window.requestAnimationFrame(() => {
+      setNoPosition(nextPosition);
+    });
   }
 
   const noButton = (
