@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DateTimeChoice } from "./components/DateTimeChoice";
 import { FoodChoice } from "./components/FoodChoice";
 import { ConfirmationCard } from "./components/ConfirmationCard";
@@ -10,6 +10,7 @@ import { QuestionTeaser } from "./components/QuestionTeaser";
 import { MeowScreen } from "./components/MeowScreen";
 import { invitationConfig } from "./data/invitation";
 import backgroundMusicUrl from "../assets/audio/freecompress-background-music.mp3";
+import { preloadImages } from "./preloadImages";
 
 type Stage = "meow" | "intro" | "teaser" | "invitation" | "date-time" | "food" | "confirmation";
 
@@ -30,6 +31,10 @@ export default function App() {
   const [selections, setSelections] = useState<InviteSelections>(initialSelections);
   const [hasUsedAnything, setHasUsedAnything] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    preloadImages();
+  }, []);
 
   const handleMeow = async () => {
     try {
