@@ -9,7 +9,7 @@ import { IntroScreen } from "./components/IntroScreen";
 import { QuestionTeaser } from "./components/QuestionTeaser";
 import { MeowScreen } from "./components/MeowScreen";
 import { invitationConfig } from "./data/invitation";
-import backgroundMusicUrl from "../assets/audio/background-music.mp3";
+import backgroundMusicUrl from "../assets/audio/freecompress-background-music.mp3";
 
 type Stage = "meow" | "intro" | "teaser" | "invitation" | "date-time" | "food" | "confirmation";
 
@@ -43,7 +43,7 @@ export default function App() {
   return (
     <>
       <StickerLayer />
-      <audio ref={audioRef} className="background-audio" loop preload="auto" src={backgroundMusicUrl} />
+      <audio ref={audioRef} className="background-audio" loop preload="none" src={backgroundMusicUrl} />
       <main data-stage={stage}>
       {stage === "meow" && (
         <MeowScreen onMeow={handleMeow} />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import sticker8 from "../../assets/images/sticker8.webp";
 
@@ -40,7 +40,28 @@ const times = Array.from({ length: 25 }, (_, index) => {
 export function DateTimeChoice({ onNext, onBack }: DateTimeChoiceProps) {
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [isTimeMenuOpen, setIsTimeMenuOpen] = useState(false);
   const [floatingDays, setFloatingDays] = useState<Record<number, FloatingDay>>({});
+  const timeSelectRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function closeTimeMenu(event: MouseEvent) {
+      if (!timeSelectRef.current?.contains(event.target as Node)) {
+        setIsTimeMenuOpen(false);
+      }
+    }
+
+    function closeTimeMenuOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setIsTimeMenuOpen(false);
+    }
+
+    document.addEventListener("mousedown", closeTimeMenu);
+    document.addEventListener("keydown", closeTimeMenuOnEscape);
+    return () => {
+      document.removeEventListener("mousedown", closeTimeMenu);
+      document.removeEventListener("keydown", closeTimeMenuOnEscape);
+    };
+  }, []);
 
   function moveDateButton(day: number, button: HTMLButtonElement) {
     const rect = button.getBoundingClientRect();
@@ -162,22 +183,37 @@ export function DateTimeChoice({ onNext, onBack }: DateTimeChoiceProps) {
             <img className="time-panel-sticker" src={sticker8} alt="" aria-hidden="true" />
             <p className="time-label">When should our date begin?</p>
             <p className="time-hint">Choose when our little adventure begins</p>
-            <div className="time-select-wrapper">
-              <select
+            <div className="time-select-wrapper" ref={timeSelectRef}>
+              <button
+                type="button"
+                className={`time-select${isTimeMenuOpen ? " time-select--open" : ""}`}
                 aria-label="Select a time"
-                className="time-select"
-                value={selectedTime ?? ""}
-                onChange={(event) => setSelectedTime(event.target.value)}
+                aria-haspopup="listbox"
+                aria-expanded={isTimeMenuOpen}
+                onClick={() => setIsTimeMenuOpen((open) => !open)}
               >
-                <option disabled value="">
-                  Select a time
-                </option>
-                {times.map((time) => (
-                  <option key={time.value} value={time.label}>
-                    {time.label}
-                  </option>
-                ))}
-              </select>
+                <span>{selectedTime ?? "Select a time"}</span>
+                <span className="time-select-arrow" aria-hidden="true" />
+              </button>
+              {isTimeMenuOpen && (
+                <div className="time-select-menu" role="listbox" aria-label="Available times">
+                  {times.map((time) => (
+                    <button
+                      key={time.value}
+                      type="button"
+                      role="option"
+                      aria-selected={selectedTime === time.label}
+                      className={`time-select-option${selectedTime === time.label ? " time-select-option--selected" : ""}`}
+                      onClick={() => {
+                        setSelectedTime(time.label);
+                        setIsTimeMenuOpen(false);
+                      }}
+                    >
+                      {time.label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

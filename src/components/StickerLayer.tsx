@@ -119,6 +119,8 @@ export function StickerLayer() {
               className="floating-sticker"
               src={source}
               alt=""
+              loading="lazy"
+              decoding="async"
               style={{
                 transform: `rotate(${placement.rotation}deg) scale(${placement.scale})`,
               }}
