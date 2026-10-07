@@ -316,6 +316,10 @@ main select {
   transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.food-option--featured-centered:hover {
+  transform: translateX(calc(50% + clamp(4px, 1.25vw, 6px))) translateY(-3px);
+}
+
 .snap-clip {
   width: clamp(180px, 25vw, 280px);
   overflow: hidden;
@@ -1269,4 +1273,31 @@ main {
 .confirmation-modal h2,
 .submit-error {
   text-shadow: none;
+}
+
+/* Keep Samurai centered after the anything-option is consumed.
+   This must come after the shared hover/active rules below so they cannot
+   replace the centering translate with the old grid-position transform. */
+.food-options .food-option.food-option--featured-centered:hover {
+  transform: translateX(calc(50% + clamp(4px, 1.25vw, 6px))) translateY(-3px) scale(1.015);
+}
+
+.food-options .food-option.food-option--featured-centered:active {
+  transform: translateX(calc(50% + clamp(4px, 1.25vw, 6px))) translateY(-1px) scale(0.99);
+}
+
+@media (max-width: 760px) {
+  .food-options .food-option.food-option--featured-centered,
+  .food-options .food-option.food-option--featured-centered:hover,
+  .food-options .food-option.food-option--featured-centered:active {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+
+  .food-options .food-option.food-option--featured-centered:hover {
+    transform: translateX(0) translateY(-3px) scale(1.015);
+  }
+
+  .food-options .food-option.food-option--featured-centered:active {
+    transform: translateX(0) translateY(-1px) scale(0.99);
+  }
 }
