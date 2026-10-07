@@ -3,6 +3,8 @@ import { createPortal } from "react-dom";
 
 type InvitationProps = {
   question: string;
+  subtitle?: string;
+  icon?: string;
   yesLabel: string;
   noLabel: string;
   onYes: () => void;
@@ -10,6 +12,8 @@ type InvitationProps = {
 
 export function Invitation({
   question,
+  subtitle,
+  icon,
   yesLabel,
   noLabel,
   onYes,
@@ -83,6 +87,8 @@ export function Invitation({
   return (
     <section data-component="invitation">
       <div className="invitation-card">
+        {icon && <div className="invitation-icon" aria-hidden="true">{icon}</div>}
+        {subtitle && <p className="invitation-subtitle">{subtitle}</p>}
         <p className="invitation-question">{question}</p>
         <div className="invitation-actions">
           <button className="yes-button" type="button" onClick={onYes}>

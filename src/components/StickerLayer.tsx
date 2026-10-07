@@ -6,12 +6,29 @@ import sticker4 from "../../assets/images/sticker4.png";
 import sticker5 from "../../assets/images/sticker5.png";
 import sticker6 from "../../assets/images/sticker6.png";
 import sticker7 from "../../assets/images/sticker7.png";
+import sticker9 from "../../assets/images/sticker9.png";
+import sticker10 from "../../assets/images/sticker10.png";
+import sticker11 from "../../assets/images/sticker11.png";
+import sticker12 from "../../assets/images/sticker12.png";
 
-const stickerSources = [sticker1, sticker2, sticker3, sticker4, sticker5, sticker6, sticker7];
+const stickerSources = [
+  sticker1,
+  sticker2,
+  sticker3,
+  sticker4,
+  sticker5,
+  sticker6,
+  sticker7,
+  sticker9,
+  sticker10,
+  sticker11,
+  sticker12,
+];
+
 function createStickerInstances() {
   const instances: string[] = [];
 
-  for (let round = 0; round < 6; round += 1) {
+  for (let round = 0; round < 4; round += 1) {
     const batch = [...stickerSources].sort(() => Math.random() - 0.5);
     const previous = instances.at(-1);
     if (batch[0] === previous) {
@@ -68,8 +85,8 @@ function randomPlacement(index: number): StickerPlacement {
     scale: 0.26 + Math.random() * 0.74,
     duration: 5.5 + Math.random() * 2.5,
     delay: Math.random() * -6,
-    driftX: -5 + Math.random() * 10,
-    driftY: -8 + Math.random() * 16,
+    driftX: -8 + Math.random() * 16,
+    driftY: -14 + Math.random() * 28,
   };
 }
 

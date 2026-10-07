@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { smokeDisintegrate } from "../effects/smokeDisintegrate";
 import snapVideoUrl from "../../assets/clips/Snap.mp4";
+import sticker14 from "../../assets/images/sticker14.png";
+import sticker15 from "../../assets/images/sticker15.png";
+import sticker16 from "../../assets/images/sticker16.png";
 
 type FoodChoiceProps = {
   onNext: (food: string) => void;
@@ -16,6 +19,7 @@ const foodOptions = [
   { label: "Gia Phả Xương Xẩu", description: "Món sườn", emoji: "🍖" },
   { label: "Ngưu Ma Vương Nghỉ Phép", description: "Món bò", emoji: "🐄" },
   { label: "Khói Tận Cam Lai", description: "Món nướng", emoji: "🔥" },
+  { label: "Samurai Đói Bụng", description: "Món Nhật", emoji: "🍱", featured: true },
   {
     label: "Món gìii cũnggg đượccccc",
     description: "Món gì cũng được",
@@ -23,6 +27,8 @@ const foodOptions = [
     anything: true,
   },
 ];
+
+const confirmationStickers = [sticker16, sticker15, sticker14];
 
 export function FoodChoice({ onNext, onBack, hasUsedAnything, onAnythingConsumed }: FoodChoiceProps) {
   const [selectedFood, setSelectedFood] = useState<string | null>(null);
@@ -94,8 +100,8 @@ export function FoodChoice({ onNext, onBack, hasUsedAnything, onAnythingConsumed
         <button className="back-button" type="button" onClick={onBack}>
           ← Back
         </button>
-        <p className="food-question">What are we craving?</p>
-        <p className="food-subtitle">Pick our date-night feast</p>
+        <p className="food-question">What shall we feast on?</p>
+        <p className="food-subtitle">Pick the flavour of our date night</p>
 
         <div className="food-options">
           {foodOptions.map((food) => {
@@ -104,7 +110,7 @@ export function FoodChoice({ onNext, onBack, hasUsedAnything, onAnythingConsumed
             return (
             <button
               ref={food.anything ? anythingButtonRef : undefined}
-              className={`food-option${food.anything ? " food-option--anything" : ""}${
+              className={`food-option${food.anything ? " food-option--anything" : ""}${food.featured ? ` food-option--featured${hasUsedAnything ? " food-option--featured-centered" : ""}` : ""}${
                 selectedFood === food.label ? " food-option--selected" : ""
               }`}
               title={food.description}
@@ -134,7 +140,7 @@ export function FoodChoice({ onNext, onBack, hasUsedAnything, onAnythingConsumed
           disabled={!selectedFood}
           onClick={() => onNext(selectedFood!)}
         >
-          SAVE OUR PICKS ♥
+          SAVE OUR DATE PLAN ♥
         </button>
         </div>
 
@@ -166,7 +172,13 @@ export function FoodChoice({ onNext, onBack, hasUsedAnything, onAnythingConsumed
             aria-modal="true"
             aria-labelledby="confirmation-modal-title"
           >
-            <p className="confirmation-modal-kicker">Wait a second...</p>
+            <img
+              className="confirmation-modal-sticker"
+              src={confirmationStickers[confirmationStep - 1]}
+              alt=""
+              aria-hidden="true"
+            />
+            <p className="confirmation-modal-kicker">Hold on, sweetheart...</p>
             <h2 id="confirmation-modal-title">{confirmationCopy[confirmationStep - 1]}</h2>
             <div className="confirmation-modal-actions">
               <button type="button" className="modal-no-button" onClick={() => setConfirmationStep(0)}>

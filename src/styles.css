@@ -41,6 +41,65 @@ main {
   overflow: hidden;
 }
 
+.background-audio {
+  display: none;
+}
+
+.meow-card {
+  display: grid;
+  min-width: min(82vw, 280px);
+  place-items: center;
+  gap: 18px;
+  padding: clamp(24px, 7vh, 42px);
+  text-align: center;
+}
+
+.meow-icon {
+  font-size: clamp(2.8rem, 12vw, 4.5rem);
+  line-height: 1;
+}
+
+.meow-sticker {
+  display: block;
+  width: clamp(220px, 55vw, 500px);
+  max-width: 100%;
+  margin: -8px auto 0;
+  filter: drop-shadow(0 7px 10px rgb(0 82 111 / 18%));
+  transform: rotate(-4deg);
+}
+
+.meow-message {
+  max-width: 360px;
+  margin: -4px 0 0;
+  color: #2f7f91;
+  font-size: clamp(1rem, 3.5vw, 1.25rem);
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.meow-button {
+  padding: 12px 28px;
+  color: #fff;
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  font-weight: 700;
+  cursor: pointer;
+  background: #00bdfc;
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgb(0 145 190 / 25%);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.meow-button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 24px rgb(0 145 190 / 32%);
+}
+
+.meow-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
 [data-component="invitation"] {
   width: min(100%, clamp(280px, 82vw, 420px));
 }
@@ -59,6 +118,59 @@ main {
   margin: 0 auto clamp(22px, 5vh, 34px);
   font-size: clamp(1.45rem, 7vw, 2.45rem);
   line-height: 1.15;
+}
+
+.intro-card {
+  text-align: center;
+}
+
+.intro-icon,
+.invitation-icon {
+  margin-bottom: clamp(12px, 3vh, 20px);
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  line-height: 1;
+}
+
+.intro-question {
+  margin: 0 auto clamp(10px, 2vh, 14px);
+  color: #075b78;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.3rem, 6vw, 2rem);
+  line-height: 1.15;
+}
+
+.intro-subtitle {
+  margin: 0;
+  color: #075b78;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.3rem, 6vw, 2rem);
+  line-height: 1.15;
+}
+
+.teaser-question {
+  margin: 0 auto clamp(22px, 5vh, 30px);
+  color: #075b78;
+  font-size: clamp(1.3rem, 6vw, 2rem);
+  line-height: 1.4;
+}
+
+.intro-next-button {
+  margin-top: clamp(22px, 5vh, 30px);
+}
+
+.invitation-subtitle {
+  margin-bottom: clamp(12px, 3vh, 18px);
+}
+
+/* Give regular copy a subtle edge without affecting button labels. */
+main :where(p, h1, h2, h3, span):not(button span),
+main select {
+  text-shadow:
+    -1px -1px 0 rgb(190 241 250 / 72%),
+    1px -1px 0 rgb(190 241 250 / 72%),
+    -1px 1px 0 rgb(190 241 250 / 72%),
+    1px 1px 0 rgb(190 241 250 / 72%),
+    0 2px 6px rgb(0 91 120 / 12%);
 }
 
 .yes-button {
@@ -189,7 +301,19 @@ main {
 }
 
 .food-option--anything {
-  grid-column: 1 / -1;
+  grid-column: auto;
+}
+
+.food-option--featured {
+  grid-column: auto;
+  width: 100%;
+  justify-self: stretch;
+  transform: translateX(0);
+}
+
+.food-option--featured-centered {
+  transform: translateX(calc(50% + clamp(4px, 1.25vw, 6px)));
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .snap-clip {
@@ -253,6 +377,15 @@ main {
   border-radius: 20px;
   box-shadow: 0 22px 60px rgb(0 78 104 / 30%);
   animation: confirmation-modal-in 180ms ease-out;
+}
+
+.confirmation-modal-sticker {
+  display: block;
+  width: min(100%, 150px);
+  height: 118px;
+  object-fit: contain;
+  margin: -12px auto 10px;
+  filter: drop-shadow(0 6px 8px rgb(0 82 111 / 16%));
 }
 
 .confirmation-modal-kicker {
@@ -360,6 +493,27 @@ main {
     flex-direction: column;
   }
 
+  .food-option--featured {
+    width: 100%;
+  }
+
+  .food-option--featured-centered {
+    width: 100%;
+    transform: translateX(0);
+  }
+
+  .date-time-choice {
+    width: min(100%, 440px);
+  }
+
+  .date-time-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .time-panel {
+    text-align: center;
+  }
+
   .snap-clip {
     width: min(100%, 300px);
   }
@@ -412,17 +566,24 @@ main {
 }
 
 .date-time-choice {
-  width: min(100%, clamp(280px, 88vw, 440px));
+  width: min(100%, clamp(620px, 86vw, 780px));
 }
 
 .date-time-card {
-  padding: clamp(18px, 4vh, 34px) clamp(14px, 5vw, 22px) clamp(18px, 4vh, 28px);
+  padding: clamp(22px, 4vh, 30px) clamp(20px, 4vw, 30px) clamp(22px, 4vh, 30px);
   text-align: center;
   background: rgb(255 255 255 / 78%);
   border: 1px solid rgb(255 255 255 / 85%);
   border-radius: 18px;
   box-shadow: 0 18px 42px rgb(151 74 111 / 16%);
   backdrop-filter: blur(8px);
+}
+
+.date-time-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: clamp(20px, 3vw, 32px);
 }
 
 .date-time-question {
@@ -444,6 +605,8 @@ main {
 }
 
 .calendar {
+  width: 100%;
+  max-width: none;
   position: relative;
   padding: clamp(10px, 2.5vh, 14px) clamp(8px, 3vw, 12px) clamp(8px, 2vh, 12px);
   background: linear-gradient(145deg, rgb(255 251 253 / 96%), rgb(255 241 248 / 88%));
@@ -541,7 +704,46 @@ main {
 }
 
 .time-label {
-  margin: clamp(12px, 3vh, 18px) 0 clamp(6px, 1.5vh, 8px);
+  margin: 0 0 7px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85rem;
+}
+
+.time-panel {
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(18px, 3vw, 24px) clamp(14px, 2vw, 18px) clamp(20px, 3vw, 26px);
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    rgb(252 255 255 / 34%) 0%,
+    rgb(239 252 255 / 72%) 48%,
+    rgb(174 238 251 / 88%) 100%
+  );
+  border: 0;
+  border-radius: 16px;
+  box-shadow: inset 0 0 26px rgb(255 255 255 / 30%);
+}
+
+.time-panel-sticker {
+  display: block;
+  width: min(100%, 300px);
+  max-width: 100%;
+  margin: -8px auto 10px;
+  transform: rotate(-8deg);
+  filter: drop-shadow(0 5px 7px rgb(0 82 111 / 18%));
+}
+
+.time-hint {
+  margin: 0 0 clamp(14px, 2vh, 18px);
+  color: #5c9db0;
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.4;
 }
 
 .time-select-wrapper {
@@ -663,6 +865,59 @@ main {
   opacity: 0.55;
 }
 
+.send-success-reveal {
+  position: fixed;
+  z-index: 120;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 4px;
+  width: min(92vw, 700px);
+  height: 80vh;
+  margin: 0;
+  padding: 20px;
+  color: #2f7f91;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 7vw, 3rem);
+  font-weight: 700;
+  text-align: center;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: send-success-fade 5000ms ease-in-out forwards;
+}
+
+.send-success-reveal img {
+  display: block;
+  width: min(90vw, 560px);
+  height: min(68vh, 560px);
+  object-fit: contain;
+  filter: drop-shadow(0 5px 7px rgb(0 82 111 / 16%));
+}
+
+@keyframes send-success-fade {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.82);
+  }
+
+  18%,
+  72% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
+
 .submit-error {
   margin: 10px 0 0;
   color: #b33d70;
@@ -690,6 +945,23 @@ body {
   background: rgb(252 255 255 / 82%);
   border-color: rgb(255 255 255 / 90%);
   box-shadow: 0 18px 42px rgb(0 118 155 / 16%);
+}
+
+.invitation-card,
+.food-card,
+.confirmation-card,
+.date-time-card {
+  background: linear-gradient(
+    135deg,
+    rgb(252 255 255 / 34%) 0%,
+    rgb(239 252 255 / 72%) 48%,
+    rgb(174 238 251 / 88%) 100%
+  );
+}
+
+.time-panel {
+  background: transparent;
+  box-shadow: none;
 }
 
 .yes-button,
@@ -932,6 +1204,7 @@ main {
   position: absolute;
   display: block;
   animation: sticker-float ease-in-out infinite;
+  transform-origin: center;
   will-change: transform;
 }
 
@@ -948,10 +1221,52 @@ main {
 @keyframes sticker-float {
   0%,
   100% {
-    transform: translate(0, 0) rotate(-1deg);
+    transform: translate(0, 0) rotate(-5deg);
   }
 
   50% {
-    transform: translate(var(--drift-x), var(--drift-y)) rotate(1deg);
+    transform: translate(var(--drift-x), var(--drift-y)) rotate(5deg);
   }
+}
+
+/* Keep the final text palette soft after the theme overrides above. */
+.intro-question,
+.intro-subtitle,
+.teaser-question,
+.invitation-question,
+.date-time-question,
+.food-question,
+.confirmation-message,
+.confirmation-heading,
+.confirmation-modal h2 {
+  color: #2f7f91;
+}
+
+.date-time-subtitle,
+.food-subtitle,
+.time-label,
+.time-hint,
+.confirmation-note,
+.confirmation-modal-kicker,
+.calendar-weekdays {
+  color: #6aa9b5;
+}
+
+.calendar-month,
+.confirmation-details p,
+.time-select {
+  color: #438fa0;
+}
+
+.calendar *,
+.time-panel *,
+.date-time-subtitle,
+.food-subtitle,
+.time-hint,
+.confirmation-note,
+.confirmation-details p,
+.confirmation-modal-kicker,
+.confirmation-modal h2,
+.submit-error {
+  text-shadow: none;
 }

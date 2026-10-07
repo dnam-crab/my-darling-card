@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import sticker8 from "../../assets/images/sticker8.png";
 
 type DateTimeChoiceProps = {
   onNext: (date: string, time: string) => void;
@@ -100,79 +101,85 @@ export function DateTimeChoice({ onNext, onBack }: DateTimeChoiceProps) {
         <button className="back-button" type="button" onClick={onBack}>
           ← Back
         </button>
-        <p className="date-time-question">When are you free for our date?</p>
-        <p className="date-time-subtitle">Pick the day and time that works for us</p>
+        <p className="date-time-question">Let&apos;s plan our little adventure</p>
+        <p className="date-time-subtitle">Pick a day and time that feels perfect for us</p>
 
-        <div className="calendar" aria-label="October 2026 calendar">
-          <div className="calendar-frame-top" aria-hidden="true">
-            <span>✦</span>
-            <span>♡</span>
-            <span>✦</span>
+        <div className="date-time-layout">
+          <div className="calendar" aria-label="October 2026 calendar">
+            <div className="calendar-frame-top" aria-hidden="true">
+              <span>✦</span>
+              <span>♡</span>
+              <span>✦</span>
+            </div>
+            <p className="calendar-month">October 2026</p>
+            <div className="calendar-weekdays" aria-hidden="true">
+              {weekdays.map((day) => (
+                <span key={day}>{day}</span>
+              ))}
+            </div>
+            <div className="calendar-days">
+              {calendarDays.map(({ day, muted }, index) => (
+                muted ? (
+                  <button
+                    className="calendar-day calendar-day--muted"
+                    key={`${day}-muted-${index}`}
+                    type="button"
+                    disabled
+                  >
+                    {day}
+                  </button>
+                ) : floatingDays[day] ? (
+                  <span
+                    className="calendar-day calendar-day--empty"
+                    key={`${day}-floating-${index}`}
+                  />
+                ) : (
+                  <button
+                    className={`calendar-day${
+                      day === 10 ? " calendar-day--target" : " calendar-day--runner"
+                    }${selectedDay === day ? " calendar-day--selected" : ""}`}
+                    key={`${day}-current-${index}`}
+                    type="button"
+                    onMouseEnter={(event) => {
+                      if (day !== 10) moveDateButton(day, event.currentTarget);
+                    }}
+                    onFocus={(event) => {
+                      if (day !== 10) moveDateButton(day, event.currentTarget);
+                    }}
+                    onClick={() => {
+                      if (day === 10) setSelectedDay(day);
+                    }}
+                  >
+                    {day}
+                  </button>
+                )
+              ))}
+            </div>
+            <div className="calendar-frame-bottom" aria-hidden="true">♡</div>
           </div>
-          <p className="calendar-month">October 2026</p>
-          <div className="calendar-weekdays" aria-hidden="true">
-            {weekdays.map((day) => (
-              <span key={day}>{day}</span>
-            ))}
-          </div>
-          <div className="calendar-days">
-            {calendarDays.map(({ day, muted }, index) => (
-              muted ? (
-                <button
-                  className="calendar-day calendar-day--muted"
-                  key={`${day}-muted-${index}`}
-                  type="button"
-                  disabled
-                >
-                  {day}
-                </button>
-              ) : floatingDays[day] ? (
-                <span
-                  className="calendar-day calendar-day--empty"
-                  key={`${day}-floating-${index}`}
-                />
-              ) : (
-                <button
-                  className={`calendar-day${
-                    day === 10 ? " calendar-day--target" : " calendar-day--runner"
-                  }${selectedDay === day ? " calendar-day--selected" : ""}`}
-                  key={`${day}-current-${index}`}
-                  type="button"
-                  onMouseEnter={(event) => {
-                    if (day !== 10) moveDateButton(day, event.currentTarget);
-                  }}
-                  onFocus={(event) => {
-                    if (day !== 10) moveDateButton(day, event.currentTarget);
-                  }}
-                  onClick={() => {
-                    if (day === 10) setSelectedDay(day);
-                  }}
-                >
-                  {day}
-                </button>
-              )
-            ))}
-          </div>
-          <div className="calendar-frame-bottom" aria-hidden="true">♡</div>
-        </div>
 
-        <p className="time-label">What time?</p>
-        <div className="time-select-wrapper">
-          <select
-            aria-label="Select a time"
-            className="time-select"
-            value={selectedTime ?? ""}
-            onChange={(event) => setSelectedTime(event.target.value)}
-          >
-            <option disabled value="">
-              Select a time
-            </option>
-            {times.map((time) => (
-              <option key={time.value} value={time.label}>
-                {time.label}
-              </option>
-            ))}
-          </select>
+          <div className="time-panel">
+            <img className="time-panel-sticker" src={sticker8} alt="" aria-hidden="true" />
+            <p className="time-label">When should our date begin?</p>
+            <p className="time-hint">Choose when our little adventure begins</p>
+            <div className="time-select-wrapper">
+              <select
+                aria-label="Select a time"
+                className="time-select"
+                value={selectedTime ?? ""}
+                onChange={(event) => setSelectedTime(event.target.value)}
+              >
+                <option disabled value="">
+                  Select a time
+                </option>
+                {times.map((time) => (
+                  <option key={time.value} value={time.label}>
+                    {time.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
 
         <button

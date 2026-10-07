@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { InviteSelections } from "../App";
+import sticker00 from "../../assets/images/sticker00.png";
 
 type ConfirmationCardProps = {
   selections: InviteSelections;
@@ -9,13 +10,14 @@ type ConfirmationCardProps = {
 
 export function ConfirmationCard({ selections, onBack, onSubmit }: ConfirmationCardProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [showSendReveal, setShowSendReveal] = useState(false);
   const formattedDate = selections.date
     ? new Intl.DateTimeFormat("en-US", {
         weekday: "long",
         month: "long",
         day: "numeric",
       }).format(new Date(`${selections.date}T12:00:00`))
-    : "Date not selected";
+    : "A date still needs choosing";
 
   return (
     <section className="confirmation-choice" data-component="confirmation-card">
@@ -32,17 +34,17 @@ export function ConfirmationCard({ selections, onBack, onSubmit }: ConfirmationC
           </p>
           <p>
             <span aria-hidden="true">⏰</span>
-            {selections.time ?? "Time not selected"}
+            {selections.time ?? "A time still needs choosing"}
           </p>
           <p>
             <span aria-hidden="true">🍽️</span>
-            {selections.food ?? "Food not selected"}
+            {selections.food ?? "A feast still needs choosing"}
           </p>
         </div>
 
-        <p className="confirmation-message">I can&apos;t wait to see you! 🌷✨</p>
+        <p className="confirmation-message">I can&apos;t wait to spend this time with you! 🌷✨</p>
         <p className="confirmation-note">
-          This is going to be our perfect date!!
+          I&apos;m already looking forward to our little adventure!!
         </p>
 
         <button
@@ -55,19 +57,30 @@ export function ConfirmationCard({ selections, onBack, onSubmit }: ConfirmationC
             try {
               await onSubmit();
               setStatus("sent");
+              setShowSendReveal(true);
             } catch {
               setStatus("error");
             }
           }}
         >
           {status === "sending"
-            ? "SENDING..."
+            ? "SAVING OUR DATE..."
             : status === "sent"
-              ? "SENT ♥"
-              : "SEND MY PICKS ♥"}
+              ? "SAVED ♥"
+              : "SEND OUR DATE PLAN ♥"}
         </button>
+        {showSendReveal && (
+          <div
+            className="send-success-reveal"
+            role="status"
+            onAnimationEnd={() => setShowSendReveal(false)}
+          >
+            <img src={sticker00} alt="" aria-hidden="true" />
+            <span>Tu tu xình xịch</span>
+          </div>
+        )}
         {status === "error" && (
-          <p className="submit-error">Could not send. Please try again.</p>
+          <p className="submit-error">Oops, our date plan got shy. Please try again.</p>
         )}
       </div>
     </section>
