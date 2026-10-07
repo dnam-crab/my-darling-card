@@ -193,7 +193,7 @@ export function DateTimeChoice({ onNext, onBack }: DateTimeChoiceProps) {
                 onClick={() => setIsTimeMenuOpen((open) => !open)}
               >
                 <span>{selectedTime ?? "Select a time"}</span>
-                <span className="time-select-arrow" aria-hidden="true" />
+                <span className="time-select-arrow" aria-hidden="true">♥</span>
               </button>
               {isTimeMenuOpen && (
                 <div className="time-select-menu" role="listbox" aria-label="Available times">
