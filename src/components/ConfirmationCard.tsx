@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { InviteSelections } from "../App";
-import sticker00 from "../../assets/images/sticker00.png";
+import sticker00 from "../../assets/images/sticker00.webp";
 
 type ConfirmationCardProps = {
   selections: InviteSelections;

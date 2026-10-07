@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { smokeDisintegrate } from "../effects/smokeDisintegrate";
 import snapVideoUrl from "../../assets/clips/Snap.mp4";
-import sticker14 from "../../assets/images/sticker14.png";
-import sticker15 from "../../assets/images/sticker15.png";
-import sticker16 from "../../assets/images/sticker16.png";
+import sticker14 from "../../assets/images/sticker14.webp";
+import sticker15 from "../../assets/images/sticker15.webp";
+import sticker16 from "../../assets/images/sticker16.webp";
 
 type FoodChoiceProps = {
   onNext: (food: string) => void;

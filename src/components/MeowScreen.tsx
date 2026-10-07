@@ -1,4 +1,4 @@
-import sticker13 from "../../assets/images/sticker13.png";
+import sticker13 from "../../assets/images/sticker13.webp";
 
 type MeowScreenProps = {
   onMeow: () => void;

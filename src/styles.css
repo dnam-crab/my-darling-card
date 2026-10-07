@@ -1178,7 +1178,7 @@ body::after {
 }
 
 body::before {
-  background: url("/assets/images/background.png") 95% center / cover no-repeat;
+  background: url("/assets/images/background.webp") 95% center / cover no-repeat;
   filter: blur(6px);
   opacity: 0.55;
   transform: scale(1.025);

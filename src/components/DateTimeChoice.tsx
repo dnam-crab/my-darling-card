@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import sticker8 from "../../assets/images/sticker8.png";
+import sticker8 from "../../assets/images/sticker8.webp";
 
 type DateTimeChoiceProps = {
   onNext: (date: string, time: string) => void;

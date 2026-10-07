@@ -1,15 +1,15 @@
 import { useMemo } from "react";
-import sticker1 from "../../assets/images/sticker1.png";
-import sticker2 from "../../assets/images/sticker2.png";
-import sticker3 from "../../assets/images/sticker3.png";
-import sticker4 from "../../assets/images/sticker4.png";
-import sticker5 from "../../assets/images/sticker5.png";
-import sticker6 from "../../assets/images/sticker6.png";
-import sticker7 from "../../assets/images/sticker7.png";
-import sticker9 from "../../assets/images/sticker9.png";
-import sticker10 from "../../assets/images/sticker10.png";
-import sticker11 from "../../assets/images/sticker11.png";
-import sticker12 from "../../assets/images/sticker12.png";
+import sticker1 from "../../assets/images/sticker1.webp";
+import sticker2 from "../../assets/images/sticker2.webp";
+import sticker3 from "../../assets/images/sticker3.webp";
+import sticker4 from "../../assets/images/sticker4.webp";
+import sticker5 from "../../assets/images/sticker5.webp";
+import sticker6 from "../../assets/images/sticker6.webp";
+import sticker7 from "../../assets/images/sticker7.webp";
+import sticker9 from "../../assets/images/sticker9.webp";
+import sticker10 from "../../assets/images/sticker10.webp";
+import sticker11 from "../../assets/images/sticker11.webp";
+import sticker12 from "../../assets/images/sticker12.webp";
 
 const stickerSources = [
   sticker1,
